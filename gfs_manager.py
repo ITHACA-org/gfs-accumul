@@ -133,10 +133,10 @@ class GFS_APCP_TimeSerie:
             gfs_meas = APCPManager(meas_abspath)
             if gfs_meas.model_exc_dt == self.start_dt and gfs_meas.forecast_time <= self.td_agg_interval:
                 self.measurements.append(gfs_meas)
-            self.measurements.sort(key=attrgetter('forecast_time'))
-            if len(self.measurements) != self.exp_nmeas:
-                print("Missing measurements in the serie!")
-                self._fix_serie()
+        self.measurements.sort(key=attrgetter('forecast_time'))
+        if len(self.measurements) != self.exp_nmeas:
+            print("Missing measurements in the serie!")
+            self._fix_serie()
         self.dt_index = tuple(measure.forecast_time for measure in self.measurements)
         self._serie = np.array([measure.precip for measure in self.measurements])
 
