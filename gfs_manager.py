@@ -22,7 +22,7 @@ class GFSManager():
         # Conversion and saving in binary format.
         self.bin_basename = 'apcp_' + self.basename + '.bin'
         try:
-            bash_command = 'wgrib2 %s -bin %s -match "1:" -order we:ns -no_header' \
+            bash_command = 'wgrib2 %s -bin %s -for_n 1:1 -order we:ns -no_header' \
                          % (os.path.join(self.dirname, self.basename), os.path.join(self.dirname, self.bin_basename))
             os.system(bash_command)
             # Cancellation of the downloaded file
@@ -52,10 +52,13 @@ class APCPManager:
         if self._precip is None:
             try:
                 # Reading and reshaping from array to matrix
+                print('Reading and reshaping from array to matrix')
                 matrix_temp = np.fromfile(os.path.join(self.dirname, self.basename), np.float32).reshape(settings.apcp_shape[0], settings.apcp_shape[1])
                 # Ignore the last row
+                print('Ignoring the last row')
                 matrix_temp = matrix_temp[1:,]
                 # Reverse from 0/360 to -180/+180
+                print('Reverse from 0/360 to -180/+180')
                 right_matrix = matrix_temp[:, 720:]
                 left_matrix = matrix_temp[:, :720]
                 reversed_matrix = np.hstack((right_matrix, left_matrix))
