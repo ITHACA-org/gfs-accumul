@@ -5,13 +5,14 @@ GFS-Accumul is an [ERDS](http://erds.ithacaweb.org) component but it can also be
 ## Installation and requirements
 
 It requires python3 and wgrib2.
+
+### How to install wgrib2
+
+On Ubuntu.
 ```
 apt-get update  
 apt-get install -y build-essential libaec-dev zlib1g-dev libcurl4-openssl-dev libboost-dev curl wget zip unzip bzip2 gfortran gcc g++
 ```
-
-### How to install wgrib2
-
 Download wgrib2 from ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib2  
 ```
 wget ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib2/wgrib2.tgz.v2.0.8 -O /home/myuser/wgrib2.tgz  
