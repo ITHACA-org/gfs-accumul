@@ -34,7 +34,7 @@ class GFSManager():
 
 class APCPManager:
 
-    SDTFORMAT = '%Y%m%d'
+    SDTFORMAT = '%Y%m%d%H'
 
     def __init__(self, abspath):
         self.abspath = abspath
@@ -52,13 +52,10 @@ class APCPManager:
         if self._precip is None:
             try:
                 # Reading and reshaping from array to matrix
-                print('Reading and reshaping from array to matrix')
                 matrix_temp = np.fromfile(os.path.join(self.dirname, self.basename), np.float32).reshape(settings.apcp_shape[0], settings.apcp_shape[1])
                 # Ignore the last row
-                print('Ignoring the last row')
                 matrix_temp = matrix_temp[1:,]
                 # Reverse from 0/360 to -180/+180
-                print('Reverse from 0/360 to -180/+180')
                 right_matrix = matrix_temp[:, 720:]
                 left_matrix = matrix_temp[:, :720]
                 reversed_matrix = np.hstack((right_matrix, left_matrix))
@@ -76,7 +73,6 @@ class APCPManager:
         dateshift = datetime.timedelta(hours=dateshift)
         self.forecast_time = dateshift
         sdate = self.basename.split('_')[2]
-        sdate = sdate[0:-2]
         naive_start_dt = datetime.datetime.strptime(sdate, self.SDTFORMAT)
         naive_end_dt = naive_start_dt + dateshift
         self.model_exc_dt = naive_start_dt.replace(tzinfo=datetime.timezone.utc)
