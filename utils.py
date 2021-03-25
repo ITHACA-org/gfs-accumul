@@ -71,7 +71,7 @@ def download_gfs_data(gfs_data_folder, relevant_subfolder):
                 base_url = settings.ADDRESSES['nomads']['base_url']
                 query_args = {'file': settings.GFS_TYPE_PREFIX[0:5] + relevant_subfolder[-2:] + settings.GFS_TYPE_PREFIX[7:] + prev_time, 'var_APCP': 'on', 'leftlon': '0', 'rightlon': '360', 'toplat': '90', 'bottomlat': '-90', 'dir': '/' + relevant_subfolder[0:-3] + "/" + relevant_subfolder[-2:]}
                 encoded_args = urllib.parse.urlencode(query_args)
-                url = base_url + encoded_args
+                url = base_url + encoded_args + '%2Fatmos'
                 response = urllib.request.urlopen(url)
                 data = response.read()
                 filename = 'gfs_' + relevant_subfolder[4:-3] + relevant_subfolder[-2:] + '_' + prev_time
